@@ -27,6 +27,7 @@
   ],
   "scripts": {
     "build": "rm -rf dist && tsc -p .",
+    "start": "node server.js",
     "lint": "eslint src __tests__",
     "lint-fix": "yarn lint -- --fix",
     "mocha": "nyc mocha --report lcovonly -- __tests__/*-test.ts",
