@@ -1,20 +1,19 @@
 const express = require("express");
-const { validate } = require("./dist");  // Path to the built module
+const { validate } = require("./dist");  // Adjust the path if necessary
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static('public'));
-
-// API route to validate email addresses
-app.post("/verify-email", (req, res) => {
-  const { email } = req.body;
+// Change from POST to GET, and use req.query to access the email parameter
+app.get("/verify", (req, res) => {
+  const email = req.query.email;  // Access query parameter 'email'
+  
   if (!email) {
-    return res.status(400).json({ error: "Email is required" });
+    return res.status(400).json({ error: "Email is required as a query parameter" });
   }
 
   try {
-    const isValid = validate(email);  // Use your validation logic here
+    const isValid = validate(email);  // Use your email validation logic
     res.json({ valid: isValid });
   } catch (error) {
     res.status(500).json({ error: "Validation error", details: error.message });
