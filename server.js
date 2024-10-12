@@ -4,7 +4,7 @@ const { validate } = require("./dist");  // Path to the built module
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
+app.use(express.static('public'));
 
 // API route to validate email addresses
 app.post("/verify-email", (req, res) => {
