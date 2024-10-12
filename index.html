@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Validator</title>
+</head>
+<body>
+  <h1>Email Validator</h1>
+  <form id="emailForm">
+    <input type="email" id="emailInput" placeholder="Enter your email" required>
+    <button type="submit">Validate Email</button>
+  </form>
+  <p id="result"></p>
+
+  <script>
+    document.getElementById('emailForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const email = document.getElementById('emailInput').value;
+
+      const response = await fetch('/verify-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      });
+
+      const result = await response.json();
+      document.getElementById('result').innerText = result.valid ? 'Email is valid' : 'Email is invalid';
+    });
+  </script>
+</body>
+</html>
